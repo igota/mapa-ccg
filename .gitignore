@@ -1,0 +1,18 @@
+# Credenciais e segredos
+.env
+*.env
+!.env.example
+
+# Dados reais (pacientes/usuários) - nunca versionar
+data/
+jsons/
+dist/data/
+
+# Build / artefatos gerados
+__pycache__/
+*.pyc
+build/
+dist/
+
+# Diversos
+tempCodeRunnerFile.py
