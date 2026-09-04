@@ -53,7 +53,7 @@ cp .env.example .env
 ## Executando em desenvolvimento
 
 ```bash
-pip install -r requirements.txt   # se houver; caso contrário, instale as libs usadas em app.py/run.py
+pip install -r requirements.txt
 python app.py
 ```
 
@@ -61,6 +61,13 @@ Ou, para simular o modo produção com console:
 
 ```bash
 python run.py --console
+```
+
+Para gerar o executável (PyInstaller):
+
+```bash
+pip install -r requirements-build.txt
+pyinstaller run.spec
 ```
 
 ## Dados e privacidade
