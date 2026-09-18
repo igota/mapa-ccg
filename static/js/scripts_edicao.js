@@ -172,9 +172,12 @@ function showTabela(tabelaId, periodo) {
                     tr.classList.add("destaque-concluido"); // Adiciona classe para status "Concluído"
                     tr.classList.remove(`destaque-${origemTabela}`)
                     tbody.appendChild(tr);
-                    
-                    
-                } 
+
+
+                } else if (statusLinha === "so") {
+                    tr.classList.add("destaque-so"); // Adiciona classe para status "S.O" (Cirurgia em Andamento)
+                    tr.classList.remove(`destaque-${origemTabela}`)
+                }
             });
 
 
@@ -1247,8 +1250,8 @@ function atualizarLinhaPorStatus() {
         if (statusSelecionado === "concluido") {
             linhaSelecionada.setAttribute("data-status", "Concluido"); // Atualiza o atributo no HTML
             linhaSelecionada.classList.add("destaque-concluido"); // Adiciona a classe de destaque à linha
-            linhaSelecionada.classList.remove("destaque-manha", "destaque-tarde", "destaque-noite"); // Remove classes de períodos anteriores
-            
+            linhaSelecionada.classList.remove("destaque-manha", "destaque-tarde", "destaque-noite", "destaque-so"); // Remove classes de períodos anteriores
+
             // Adiciona a classe de destaque à célula ID e atualiza o conteúdo da célula
             if (celulaID) {
                 celulaID.textContent = "OK"; // Altera o conteúdo da célula ID para "OK"
@@ -1269,9 +1272,28 @@ function atualizarLinhaPorStatus() {
             // Atualiza o arquivo JSON com o valor "OK" no ID
             atualizarArquivoJSON(linhaSelecionada, "OK");
 
+        } else if (statusSelecionado === "so") {
+            linhaSelecionada.setAttribute("data-status", "SO"); // Atualiza o atributo no HTML
+            linhaSelecionada.classList.add("destaque-so"); // Adiciona a classe de destaque de cirurgia em andamento
+            linhaSelecionada.classList.remove("destaque-concluido", "destaque-manha", "destaque-tarde", "destaque-noite"); // Remove outras classes de destaque
+
+            // Adiciona a sigla "S.O" à célula da coluna P
+            if (celulaID) {
+                celulaID.textContent = "S.O";
+            }
+
+            const checkbox = linhaSelecionada.querySelector('input[type="checkbox"]');
+            if (checkbox) {
+                checkbox.checked = false;
+            }
+
+            linhaSelecionada.classList.remove("selected");
+            // Atualiza o arquivo JSON com o valor "S.O" no ID
+            atualizarArquivoJSON(linhaSelecionada, "S.O");
+
         } else if (statusSelecionado === "pendente") {
             linhaSelecionada.setAttribute("data-status", "Pendente"); // Atualiza o atributo no HTML
-            linhaSelecionada.classList.remove("destaque-concluido"); // Remove o destaque de concluído
+            linhaSelecionada.classList.remove("destaque-concluido", "destaque-so"); // Remove o destaque de concluído/S.O
             if (celulaID) {
                 celulaID.textContent = ""; // Limpa o conteúdo da célula ID
             }
@@ -1303,7 +1325,7 @@ function atualizarLinhaPorStatus() {
         } else if (statusSelecionado === "inicio") {
             // Reseta o status
             linhaSelecionada.removeAttribute("data-status", "data-origem-tabela");
-            linhaSelecionada.classList.remove("destaque-concluido"); // Remove qualquer destaque da linha
+            linhaSelecionada.classList.remove("destaque-concluido", "destaque-so"); // Remove qualquer destaque da linha
 
             if (celulaID) {
                 celulaID.textContent = ""; // Limpa o conteúdo da célula ID

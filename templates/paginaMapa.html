@@ -84,7 +84,7 @@
             </thead>
             <tbody>
                 {% for item in dados_manha %}
-                    <tr>
+                    <tr class="{% if item.status and item.status|lower == 'concluido' %}destaque-concluido{% elif item.status and item.status|lower == 'so' %}destaque-so{% elif item.origem_tabela and item.origem_tabela|lower != 'manha' %}destaque-{{ item.origem_tabela|lower }}{% endif %}">
                         <td>{{ item.p }}</td>
                         <td>{{ item.horario }}</td>
                         <td>{{ item.sala }}</td>
@@ -120,7 +120,7 @@
             </thead>
             <tbody>
                 {% for item in dados_tarde %}
-                    <tr>
+                    <tr class="{% if item.status and item.status|lower == 'concluido' %}destaque-concluido{% elif item.status and item.status|lower == 'so' %}destaque-so{% elif item.origem_tabela and item.origem_tabela|lower != 'tarde' %}destaque-{{ item.origem_tabela|lower }}{% endif %}">
                         <td>{{ item.p }}</td>
                         <td>{{ item.horario }}</td>
                         <td>{{ item.sala }}</td>
@@ -156,7 +156,7 @@
             </thead>
             <tbody>
                 {% for item in dados_noite %}
-                    <tr>
+                    <tr class="{% if item.status and item.status|lower == 'concluido' %}destaque-concluido{% elif item.status and item.status|lower == 'so' %}destaque-so{% elif item.origem_tabela and item.origem_tabela|lower != 'noite' %}destaque-{{ item.origem_tabela|lower }}{% endif %}">
                         <td>{{ item.p }}</td>
                         <td>{{ item.horario }}</td>
                         <td>{{ item.sala }}</td>
@@ -175,7 +175,7 @@
                 <label class="legenda-item" style="background-color: yellow;">Manhã</label>
                 <label class="legenda-item" style="background-color: orange;">Tarde</label>
                 <label class="legenda-item" style="background-color: purple; color: white;">Noite</label>
-            </div>    
+            </div>
     
             </div>
     

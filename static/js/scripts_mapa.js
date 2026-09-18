@@ -75,6 +75,15 @@ function atualizarTabela(tabelaId, dados, enfermeiroId, contagemId, periodo) {
             );
         }
 
+        if (item.status && item.status.toLowerCase() == "so") {
+            tr.classList.add("destaque-so");
+            tr.classList.remove(
+                "destaque-manha",
+                "destaque-tarde",
+                "destaque-noite"
+            );
+        }
+
         // Extrai e processa o conteúdo de 'procedimento' e 'especialidade'
         let procedimentoText = item.procedimento || '';
         let especialidadeText = item.especialidade || '';
