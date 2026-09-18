@@ -82,9 +82,11 @@ function showTabela(tabelaId, periodo) {
                 procedimentoText = procedimentoText.replace(/-/g, '').trim();
 
                 if (procedimentoText.includes("ESPECIALIDADE:")) {
-                    let splitText = procedimentoText.split("ESPECIALIDADE:");
-                    procedimentoText = splitText[0].trim();
-                    especialidadeText = splitText[1].trim();
+                    // Captura apenas o texto da mesma linha após "ESPECIALIDADE:",
+                    // evitando pegar informações de procedimentos seguintes no mesmo campo
+                    const especialidadeMatch = procedimentoText.match(/ESPECIALIDADE:\s*([^\n]*)/);
+                    especialidadeText = especialidadeMatch ? especialidadeMatch[1].trim() : '';
+                    procedimentoText = procedimentoText.split("ESPECIALIDADE:")[0].trim();
                 }
 
                 if (procedimentoText.includes("LATERALIDADE:")) {
